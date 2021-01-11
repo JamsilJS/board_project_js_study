@@ -1,7 +1,7 @@
 
 import Button from '@material-ui/core/Button';
 import React, { useEffect, useState } from 'react';
-import { GET_BOARD_INFO } from '../services/API';
+import { GET_BOARD_INFO, DECODE_TOKEN, DELETE_BOARD} from '../services/API';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -15,6 +15,13 @@ const useStyles = makeStyles({
     backBtn: {
         position: "absolute",
         bottom: "25px",
+        right: "25px",
+        textAlign: "right",
+        padding: "5px",
+    },
+    delBtn:{
+        position: "absolute",
+        bottom: "75px",
         right: "25px",
         textAlign: "right",
         padding: "5px",
@@ -66,15 +73,30 @@ function BoardDetail(props) {
         name: "",
     }
     const [info, setInfo] = useState(boardInfo);
-
+    const [isAuth, setIsAuth] = useState(false);
     useEffect(() => {
-        const no = props.data;
-        GET_BOARD_INFO({ no }).then((res) => {
-            const date = new Date(res[0].createdDate);
-            res[0].createdDate = getTimeStamp(date);
-            setInfo(res[0]);
+        const token = localStorage.getItem("user");
+
+        DECODE_TOKEN({ token }).then((decode)=>{
+            const userNo = decode.no;
+            const no = props.data;
+            GET_BOARD_INFO({ no }).then((res) => {
+                if (userNo === res[0].userNo) {
+                    setIsAuth(true);
+                }
+                const date = new Date(res[0].createdDate);
+                res[0].createdDate = getTimeStamp(date);
+                setInfo(res[0]);
+            });
         });
-    }, [props.data])
+    }, [props.data]);
+
+    const handleDelete = () =>{
+        const boardNo = props.data;
+        DELETE_BOARD({boardNo}).then(()=>{
+            props.handleBack();
+        });
+    }
 
     return (
         <div className={classes.root}>
@@ -94,7 +116,7 @@ function BoardDetail(props) {
                     </Typography>
                 </CardContent>
             </Card>
-
+            {isAuth ? (<Button className={classes.delBtn} variant="contained" color="secondary" onClick={handleDelete}>삭제하기</Button>) : (<></>)}
             <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.handleBack}>뒤로가기</Button>
         </div>
 

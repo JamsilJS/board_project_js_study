@@ -1,10 +1,8 @@
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
-import { LOGIN } from '../../services/API';
+import { LOGIN } from '../services/API';
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles({
@@ -33,8 +31,11 @@ const useStyles = makeStyles({
 
 
 function Login(props) {
+    const classes = useStyles();
+
     const [id, setID] = useState("");
     const [pw, setPW] = useState("");
+
     let [loginStatus, setloginStatus] = useState(null);
 
     const handleLogin = async (evt) => {
@@ -56,35 +57,29 @@ function Login(props) {
             setID("");
             setPW("");
         }
-
     }
 
-    const classes = useStyles();
     return (
-        <>
-            <Header></Header>
-            <div className={classes.root}>
-                <Container className={classes.box} maxWidth="sm">
-                    <form className={classes.inp} noValidate autoComplete="off">
-                        <TextField id="id" label="ID" onChange={e => setID(e.target.value)} />
-                        <br />
-                        <TextField id="pw" label="PW" type="password" onChange={e => setPW(e.target.value)} />
-                        {loginStatus && <><h5 style={{ color: 'red' }}>{loginStatus}</h5></>}
-                    </form>
+        <div className={classes.root}>
+            <Container className={classes.box} maxWidth="sm">
+                <form className={classes.inp} noValidate autoComplete="off">
+                    <TextField id="id" label="ID" onChange={e => setID(e.target.value)} />
+                    <br />
+                    <TextField id="pw" label="PW" type="password" onChange={e => setPW(e.target.value)} />
+                    {loginStatus && <><h5 style={{ color: 'red' }}>{loginStatus}</h5></>}
+                </form>
+                <br />
+                <br />
+                <br />
+                <br />
+                <div className={classes.btn}>
+                    <Button style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" color="primary" onClick={handleLogin}>로그인</Button>
                     <br />
                     <br />
-                    <br />
-                    <br />
-                    <div className={classes.btn}>
-                        <Button style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" color="primary" onClick={handleLogin}>로그인</Button>
-                        <br />
-                        <br />
-                        <Button style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" color="secondary">회원가입</Button>
-                    </div>
-                </Container>
-            </div>
-            <Footer></Footer>
-        </>
+                    <Button style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" color="secondary" onClick={props.handleReg}>회원가입</Button>
+                </div>
+            </Container>
+        </div>
     );
 }
 

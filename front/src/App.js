@@ -1,4 +1,4 @@
-import Login from './pages/login/Login';
+import LoginPage from './pages/login/LoginPage';
 import NotFound from './pages/NotFound';
 import Board from './pages/board/Board';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
@@ -11,8 +11,8 @@ function App() {
   return (
     <Router>
       <Switch>
-        {<Route exact path="/" component={loggedCheck ? Board : Login} />}
-        <Route exact path="/board/:no" component={loggedCheck ? BoardDetail : Login} />
+        {<Route exact path="/" component={loggedCheck ? Board : LoginPage} />}
+        <Route exact path="/board/:no" component={loggedCheck ? BoardDetail : LoginPage} />
         <Route component={NotFound} />
       </Switch>
     </Router>

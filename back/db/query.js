@@ -1,9 +1,23 @@
+/**
+ * USER QUERIES
+ */
 const Q_LOGIN = "SELECT * FROM user WHERE id = ? AND pw = ?";
+const Q_CREATE_USER = "INSERT INTO user (id,pw,name) VALUES (?,?,?)";
+/**
+ * BOARD QUERIES
+ */
 const Q_GET_ALL_BOARD = "SELECT * FROM board";
-const Q_GET_BOARD_INFO = "SELECT b.no,b.title,b.b_content,b.createdDate,u.name FROM board as b, user as u WHERE b.no = ? AND u.no = b.userNo";
+const Q_GET_BOARD_INFO = "SELECT b.no,b.title,b.b_content,b.userNo,b.createdDate,u.name FROM board as b, user as u WHERE b.no = ? AND u.no = b.userNo";
+const Q_CREATE_BOARD = "INSERT INTO board (title,b_content,userNo) VALUES (?,?,?)";
+const Q_DELETE_BOARD = "DELETE FROM board WHERE no = ?";
+
+
 
 module.exports = {
     Q_LOGIN,
+    Q_CREATE_USER,
     Q_GET_ALL_BOARD,
-    Q_GET_BOARD_INFO
+    Q_GET_BOARD_INFO,
+    Q_CREATE_BOARD,
+    Q_DELETE_BOARD
 }

@@ -16,6 +16,16 @@ const LOGIN = async (userInfo) => {
     }
 }
 
+const CREATE_USER = async (formInfo) => {
+    const res = await axios.post(`${API_URL}/createUser`, formInfo, { HEADERS });
+    if(res.data === "ERROR_CREATE_USER"){
+        return "ERROR_OCCURED";
+    }
+    else if( res.data === "SUCCESS_CREATE_USER"){
+        return "SUCCESS";
+    }
+}
+
 const LOGOUT = () => {
     localStorage.removeItem("user");
 }
@@ -35,7 +45,16 @@ const GET_BOARD_INFO = async (no) => {
 }
 
 const CREATE_BOARD = async (data) => {
-    await axios.post(`${API_URL}/createBoard`, data, { HEADERS }).then((res) => console.log(res));
+    await axios.post(`${API_URL}/createBoard`, data, { HEADERS });
+}
+
+const DELETE_BOARD = async (data) => {
+    await axios.post(`${API_URL}/deleteBoard`, data, { HEADERS });
+}
+
+const DECODE_TOKEN = async (token) => {
+    const result = await axios.post(`${API_URL}/decodeToken`, token, {HEADERS});
+    return result.data;
 }
 
 export {
@@ -44,5 +63,8 @@ export {
     GET_USER_INFO,
     GET_ALL_BOARD,
     GET_BOARD_INFO,
-    CREATE_BOARD
+    CREATE_BOARD,
+    DELETE_BOARD,
+    DECODE_TOKEN,
+    CREATE_USER
 }

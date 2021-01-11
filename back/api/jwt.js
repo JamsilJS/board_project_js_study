@@ -17,6 +17,17 @@ const getToken = function (data) {
     }
 }
 
+const decodeToken = function (token) {
+    try {
+        const decoded = jwt.decode(token.slice(1, token.length - 1));
+        return decoded;
+    } catch (error) {
+        console.log("decodeToken is error :" + error);
+        throw error;
+    }
+}
+
 module.exports = {
-    getToken
+    getToken,
+    decodeToken
 }
