@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     backBtn: {
         position: "absolute",
         bottom: "25px",
-        right: "25px",
+        left: "200px",
         textAlign: "right",
         padding: "5px",
     },
@@ -34,6 +34,10 @@ function BoardCreate(props) {
     const [content,setContent] = useState("");
 
     const handleCreate = () => {
+        if(title === "" || content === "") {
+            alert("empty content or title");
+            return;
+        }
         const token = localStorage.getItem("user");
         DECODE_TOKEN({token}).then((res)=>{
             const no = res.no;
@@ -52,8 +56,9 @@ function BoardCreate(props) {
                 <br />
                 <TextField id="content" label="내용" variant="outlined" multiline rows={10} helperText="내용을 입력하세요." onChange={e => setContent(e.target.value)} fullWidth={true} />
             </form>
-            <Button className={classes.createBtn} variant="contained" color="primary" onClick={handleCreate}>생성하기</Button>
             <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.createBack}>뒤로가기</Button>
+            <Button className={classes.createBtn} variant="contained" color="primary" onClick={handleCreate}>생성하기</Button>
+           
         </div>
     );
 }

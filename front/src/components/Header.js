@@ -5,7 +5,9 @@ const useStyles = makeStyles({
         height: "34px",
         width: "100%",
         textAlign: "center",
-        background: "#FFFFFF"
+        background: "#F8F8FF",
+        margin: 0,
+        padding: 0,
     },
 })
 
@@ -14,7 +16,7 @@ function Header() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <p><b>게시판</b></p>
+            <b>게시판</b>
         </div>
     );
 }

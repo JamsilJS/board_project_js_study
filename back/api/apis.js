@@ -126,6 +126,7 @@ const DELETE_BOARD = async function (req, res) {
     try {
         const data = req.body.boardNo;
         const connection = await DB.getConnectionInfo();
+        console.log("query is : " + QUERY.Q_DELETE_BOARD);
         connection.query(QUERY.Q_DELETE_BOARD,[data],async function(err,res){
             if(err){
                 console.log("DELETE_BOARD query is error : " +  err);
@@ -155,6 +156,49 @@ const DECODE_TOKEN = async function (req, res) {
     }
 }
 
+const DELETE_USER = async function (req, res) {
+    try {
+        
+        const userNo = req.body.userNo;
+        const connection = await DB.getConnectionInfo();
+        console.log("query is : " + QUERY.Q_DELETE_USER);
+        connection.query(QUERY.Q_DELETE_USER, [userNo], async function (err, result) {
+            if (err) {
+                console.log("DELETE_USER query is error : " + err);
+                throw err;
+            }
+            else {
+                await DB.disconnection(connection);
+                return res.json("DELETE USER SUCCESS")
+            }
+        })   
+    } catch (error) {
+        console.log("DELETE_USER API error" + error);
+        throw error;     
+    }
+}
+
+const GET_MYBOARD = async function (req, res) {
+    try {
+        const userNo = req.body.userNo;
+        const connection = await DB.getConnectionInfo();
+        console.log("query is : " + QUERY.Q_GET_MYBOARD);
+        connection.query(QUERY.Q_GET_MYBOARD, [userNo], async function (err, result) {
+            if (err) {
+                console.log("GET_MYBOARD query is error : " + err);
+                throw err;
+            }
+            else {
+                await DB.disconnection(connection);
+                return res.json(result)
+            }
+        })
+    } catch (error) {
+        console.log("GET_MYBOARD API error" + error);
+        throw error;
+    }
+}
+
 module.exports = {
     LOGIN,
     GET_ALL_BOARD,
@@ -162,5 +206,7 @@ module.exports = {
     CREATE_BOARD,
     DELETE_BOARD,
     DECODE_TOKEN,
-    CREATE_USER
+    CREATE_USER,
+    DELETE_USER,
+    GET_MYBOARD
 }

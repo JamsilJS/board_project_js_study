@@ -6,6 +6,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Pagination from '@material-ui/lab/Pagination';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import CreateIcon from '@material-ui/icons/Create';
 
 const useStyles = makeStyles({
     root: {
@@ -14,20 +24,20 @@ const useStyles = makeStyles({
     },
     backBtn: {
         position: "absolute",
-        bottom: "25px",
+        bottom: "450px",
         right: "25px",
         textAlign: "right",
         padding: "5px",
     },
     delBtn:{
         position: "absolute",
-        bottom: "75px",
+        bottom: "400px",
         right: "25px",
         textAlign: "right",
         padding: "5px",
     },
     card: {
-        height: "80vh",
+        height: "45vh",
         minWidth: "400",
     },
     title: {
@@ -35,6 +45,21 @@ const useStyles = makeStyles({
     },
     pos: {
         marginBottom: 12,
+    },
+    paper:{
+        height: "40vh",
+    },
+    pagenation:{
+        textAlign:"center"
+    },
+    addArea:{
+        margin: 10,
+        padding: 3,
+        display: 'flex',
+        alignItems: 'center',
+    },
+    input: {
+        flex: 1,
     },
 })
 
@@ -100,26 +125,57 @@ function BoardDetail(props) {
 
     return (
         <div className={classes.root}>
-            <Card className={classes.card} variant="outlined">
-                <CardContent>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        글쓴이 : {info.name}
-                    </Typography>
-                    <Typography variant="h5" component="h2">
-                        {info.title}
-                    </Typography>
-                    <Typography className={classes.pos} color="textSecondary">
-                        {info.createdDate}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        {info.b_content}
-                    </Typography>
-                </CardContent>
-            </Card>
-            {isAuth ? (<Button className={classes.delBtn} variant="contained" color="secondary" onClick={handleDelete}>삭제하기</Button>) : (<></>)}
-            <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.handleBack}>뒤로가기</Button>
-        </div>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Card className={classes.card} variant="outlined">
+                        <CardContent>
+                            <Typography className={classes.title} color="textSecondary" gutterBottom>
+                                글쓴이 : {info.name}
+                            </Typography>
+                            <Typography variant="h5" component="h2">
+                                {info.title}
+                            </Typography>
+                            <Typography className={classes.pos} color="textSecondary">
+                                {info.createdDate}
+                            </Typography>
+                            <Typography variant="body2" component="p">
+                                {info.b_content}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                    {isAuth ? (<Button className={classes.delBtn} variant="contained" color="secondary" onClick={handleDelete}>삭제하기</Button>) : (<></>)}
+                </Grid>
 
+                <Grid item xs={12}>
+                    <List>
+                        <ListItem>
+                            <ListItemText primary="ID" secondary="TEST" />
+                        </ListItem>
+                        <ListItem>
+                            <ListItemText primary="ID" secondary="TEST" />
+                        </ListItem>
+                        <ListItem>
+                            <ListItemText primary="ID" secondary="TEST" />
+                        </ListItem>
+                    </List>
+                    <Paper component="form" className={classes.addArea}>
+                        <InputBase
+                            className={classes.input}
+                            placeholder="comment"
+                        />
+                        <Divider className={classes.divider} orientation="vertical" />
+                        <IconButton color="primary" className={classes.iconButton}>
+                            <CreateIcon />
+                        </IconButton>
+                    </Paper>
+                    <Grid container justify="center">
+                        <Pagination alignItems="center" justify="center"></Pagination>
+                    </Grid>
+                </Grid>
+            </Grid>
+            
+            <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.handleBack}>뒤로가기</Button>
+       </div>
     );
 }
 

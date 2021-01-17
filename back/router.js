@@ -11,5 +11,7 @@ router.post('/deleteBoard', api.DELETE_BOARD);
 router.post('/createBoard', api.CREATE_BOARD);
 router.post('/decodeToken',api.DECODE_TOKEN);
 router.post('/createUser', api.CREATE_USER);
+router.post('/deleteUser', api.DELETE_USER);
+router.post('/getMyBoard', api.GET_MYBOARD);
 
 module.exports = router;

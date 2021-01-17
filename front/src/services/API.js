@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+// const DEV = "http://115.85.182.177:50001/api"
+// const SER = "http://localhost:50001/api";
 const API_URL = "http://localhost:50001/api";
 const HEADERS = { 'Content-Type': 'application/json' };
 
@@ -57,6 +59,16 @@ const DECODE_TOKEN = async (token) => {
     return result.data;
 }
 
+const DELETE_USER = async (data) => {
+    const result = await axios.post(`${API_URL}/deleteUser`, data, { HEADERS});
+    return result;
+}
+
+const GET_MYBOARD = async (data) => {
+    const result = await axios.post(`${API_URL}/getMyBoard`, data, { HEADERS });
+    return result;
+}
+
 export {
     LOGIN,
     LOGOUT,
@@ -66,5 +78,7 @@ export {
     CREATE_BOARD,
     DELETE_BOARD,
     DECODE_TOKEN,
-    CREATE_USER
+    CREATE_USER,
+    DELETE_USER,
+    GET_MYBOARD
 }
