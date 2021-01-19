@@ -199,6 +199,50 @@ const GET_MYBOARD = async function (req, res) {
     }
 }
 
+const GET_COMMENT = async function (req, res) {
+    try {
+        const boardNo = req.body.boardNo;
+        const connection = await DB.getConnectionInfo();
+        console.log("query is : " + QUERY.Q_GET_COMMENT);
+        connection.query(QUERY.Q_GET_COMMENT, [boardNo], async function (err, result) {
+            if (err) {
+                console.log("GET_COMMENT query is error : " + err);
+                throw err;
+            }
+            else {
+                await DB.disconnection(connection);
+                return res.json(result)
+            }
+        })
+    } catch (error) {
+        console.log("GET_COMMENT API error" + error);
+        throw error;
+    }
+}
+
+const CREATE_COMMENT = async function (req, res) {
+    try {
+        const boardNo = req.body.boardNo;
+        const content = req.body.content;
+        const userNo = req.body.userNo;
+        const connection = await DB.getConnectionInfo();
+        console.log("query is : " + QUERY.Q_CREATE_COMMENT);
+        connection.query(QUERY.Q_CREATE_COMMENT, [content, boardNo, userNo], async function (err, result) {
+            if (err) {
+                console.log("CREATE_COMMENT query is error : " + err);
+                throw err;
+            }
+            else {
+                await DB.disconnection(connection);
+                return res.json("ADD_COMMENT");
+            }
+        })
+    } catch (error) {
+        console.log("CREATE_COMMENT API error" + error);
+        throw error;
+    }
+}
+
 module.exports = {
     LOGIN,
     GET_ALL_BOARD,
@@ -208,5 +252,7 @@ module.exports = {
     DECODE_TOKEN,
     CREATE_USER,
     DELETE_USER,
-    GET_MYBOARD
+    GET_MYBOARD,
+    GET_COMMENT,
+    CREATE_COMMENT
 }

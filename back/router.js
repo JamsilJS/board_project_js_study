@@ -13,5 +13,7 @@ router.post('/decodeToken',api.DECODE_TOKEN);
 router.post('/createUser', api.CREATE_USER);
 router.post('/deleteUser', api.DELETE_USER);
 router.post('/getMyBoard', api.GET_MYBOARD);
+router.post('/getComment', api.GET_COMMENT);
+router.post('/createComment', api.CREATE_COMMENT);
 
 module.exports = router;

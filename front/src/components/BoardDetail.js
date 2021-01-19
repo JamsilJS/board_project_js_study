@@ -1,13 +1,14 @@
 
 import Button from '@material-ui/core/Button';
 import React, { useEffect, useState } from 'react';
-import { GET_BOARD_INFO, DECODE_TOKEN, DELETE_BOARD} from '../services/API';
+import { GET_BOARD_INFO, DECODE_TOKEN, DELETE_BOARD, GET_COMMENT, CREATE_COMMENT } from '../services/API';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
+import PaginationItem from '@material-ui/lab/PaginationItem';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -24,14 +25,14 @@ const useStyles = makeStyles({
     },
     backBtn: {
         position: "absolute",
-        bottom: "450px",
+        top: "30px",
         right: "25px",
         textAlign: "right",
         padding: "5px",
     },
-    delBtn:{
+    delBtn: {
         position: "absolute",
-        bottom: "400px",
+        top: "80px",
         right: "25px",
         textAlign: "right",
         padding: "5px",
@@ -46,13 +47,13 @@ const useStyles = makeStyles({
     pos: {
         marginBottom: 12,
     },
-    paper:{
+    paper: {
         height: "40vh",
     },
-    pagenation:{
-        textAlign:"center"
+    pagenation: {
+        textAlign: "center"
     },
-    addArea:{
+    addArea: {
         margin: 10,
         padding: 3,
         display: 'flex',
@@ -88,6 +89,7 @@ function leadingZeros(n, digits) {
     return zero + n;
 }
 
+
 function BoardDetail(props) {
     const classes = useStyles();
     const boardInfo = {
@@ -97,13 +99,24 @@ function BoardDetail(props) {
         createdDate: "",
         name: "",
     }
+    const [comment, setComment] = useState("");
+    const [change, setChange] = useState(false);
+    const [commentList, setCommentList] = useState([]);
     const [info, setInfo] = useState(boardInfo);
     const [isAuth, setIsAuth] = useState(false);
+    const [uNo, setuNo] = useState(null);
+    const itemsPerPage = 3;
+    const [page, setPage] = useState(1);
+    const [noOfPages, setNoOfPages] = useState(
+        Math.ceil(commentList.length / itemsPerPage)
+    );
+
     useEffect(() => {
         const token = localStorage.getItem("user");
 
-        DECODE_TOKEN({ token }).then((decode)=>{
+        DECODE_TOKEN({ token }).then((decode) => {
             const userNo = decode.no;
+            setuNo(userNo);
             const no = props.data;
             GET_BOARD_INFO({ no }).then((res) => {
                 if (userNo === res[0].userNo) {
@@ -114,14 +127,48 @@ function BoardDetail(props) {
                 setInfo(res[0]);
             });
         });
-    }, [props.data]);
+    }, []);
 
-    const handleDelete = () =>{
+    useEffect(() => {
+        
         const boardNo = props.data;
-        DELETE_BOARD({boardNo}).then(()=>{
+        GET_COMMENT({ boardNo }).then((boardList) => {
+            console.log(boardList.data);
+            setCommentList(boardList.data.reverse());
+            console.log(Math.ceil(boardList.data.length / itemsPerPage));
+            setNoOfPages(Math.ceil(boardList.data.length / itemsPerPage));
+        })
+        setChange(false)
+    }, [change])
+
+    const handleDelete = () => {
+        const boardNo = props.data;
+        DELETE_BOARD({ boardNo }).then(() => {
             props.handleBack();
         });
     }
+
+    const addComment = () => {
+        if (comment === "") {
+            alert("comment is empty. please fill comment");
+            return;
+        }
+        else {
+            const content = comment;
+            const boardNo = props.data;
+            const userNo = uNo
+            CREATE_COMMENT({ content, boardNo, userNo }).then((res) => {
+                if (res.data == "ADD_COMMENT") {
+                    alert("comment added");
+                    setChange(true);
+                }
+            })
+        }
+    }
+
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    };
 
     return (
         <div className={classes.root}>
@@ -148,34 +195,39 @@ function BoardDetail(props) {
 
                 <Grid item xs={12}>
                     <List>
-                        <ListItem>
-                            <ListItemText primary="ID" secondary="TEST" />
-                        </ListItem>
-                        <ListItem>
-                            <ListItemText primary="ID" secondary="TEST" />
-                        </ListItem>
-                        <ListItem>
-                            <ListItemText primary="ID" secondary="TEST" />
-                        </ListItem>
+                        {/* yourItemList.subarray(((pageNumber - 1)*(numberOfItemsForPage)), ((pageNumber)*(numberOfItemsForPage))) */}
+                        {commentList.slice((page - 1) * itemsPerPage, page * itemsPerPage).map(value =>
+                        (
+                            <ListItem>
+                                <ListItemText primary={value.name} secondary={value.c_content} />
+                            </ListItem>
+                        )
+                        )}
                     </List>
                     <Paper component="form" className={classes.addArea}>
                         <InputBase
                             className={classes.input}
                             placeholder="comment"
+                            onChange={(e) => setComment(e.target.value)}
                         />
                         <Divider className={classes.divider} orientation="vertical" />
-                        <IconButton color="primary" className={classes.iconButton}>
+                        <IconButton color="primary" className={classes.iconButton} onClick={addComment}>
                             <CreateIcon />
                         </IconButton>
                     </Paper>
                     <Grid container justify="center">
-                        <Pagination alignItems="center" justify="center"></Pagination>
+                        <Pagination
+                            count={noOfPages}
+                            page={page}
+                            onChange={handlePageChange}
+                            default={1}
+                        />
                     </Grid>
                 </Grid>
             </Grid>
-            
+
             <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.handleBack}>뒤로가기</Button>
-       </div>
+        </div>
     );
 }
 

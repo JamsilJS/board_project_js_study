@@ -69,6 +69,16 @@ const GET_MYBOARD = async (data) => {
     return result;
 }
 
+const GET_COMMENT = async (data) => {
+    const result = await axios.post(`${API_URL}/getComment`, data, { HEADERS });
+    return result;
+}
+
+const CREATE_COMMENT = async (data) => {
+    const result = await axios.post(`${API_URL}/createComment`, data, { HEADERS });
+    return result;
+}
+
 export {
     LOGIN,
     LOGOUT,
@@ -80,5 +90,7 @@ export {
     DECODE_TOKEN,
     CREATE_USER,
     DELETE_USER,
-    GET_MYBOARD
+    GET_MYBOARD,
+    GET_COMMENT,
+    CREATE_COMMENT
 }
