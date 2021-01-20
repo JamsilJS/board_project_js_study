@@ -10,20 +10,20 @@ const useStyles = makeStyles((theme) => ({
         top:0,
         background: "#FFFFFF",
         alignItems:"center",
+        zIndex: 3,
     },
-    img: {
+    i: {
         padding: 30,
         width: 120,
         height: 120,
     }
 }))
 
-
 function Header() {
     const classes = useStyles();
     return (
         <AppBar className={classes.header} elevation={0} position="relative">
-            <img src={logImg} className={classes.img} alt="load image failed"></img>
+            <img src={logImg} className={classes.i} alt="load image failed"></img>
         </AppBar>
     );
 }

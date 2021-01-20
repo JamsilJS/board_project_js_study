@@ -9,6 +9,14 @@ import SideMenu from '../../components/SideMenu';
 import UserInfo from '../../components/UserInfo';
 import Grid from '@material-ui/core/Grid';
 import MyBoardList from '../../components/MyBoardList';
+import Drawer from '@material-ui/core/Drawer';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import clsx from 'clsx';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
+const drawerWidth = 380;
+
 const useStyles = makeStyles((theme) => ({
     mainRoot: {
         backgroundColor: "#FFFFFF",
@@ -26,6 +34,22 @@ const useStyles = makeStyles((theme) => ({
     userInfo: {
         border: "1px solid black"
     },
+    hide: {
+        display: 'none',
+    },
+    drawer: {
+        width: drawerWidth,
+        flexShrink: 0,
+    },
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    drawerButton: {
+        position: "fixed",
+        zIndex:5,
+        top: 30,
+        right: 30,
+    }
 }))
 
 
@@ -36,14 +60,23 @@ function Board() {
     const [userInfo, setUserInfo] = useState({});
     const [clickUserInfo, setClickUserInfo] = useState(null);
     const [clickMyBoard, setClickMyBoard] = useState(null);
+    const [clickDrawer, setClickDrawer] = useState(false);
 
     useEffect(()=>{
         const token = localStorage.getItem("user");
-
         DECODE_TOKEN({ token }).then((decode) => {
             setUserInfo(decode);
         });
     },[]);
+
+    const handleDrawerOpen = () => {
+        console.log("test")
+        setClickDrawer(true);
+    };
+
+    const handleDrawerClose = () => {
+        setClickDrawer(false);
+    };
 
     const handleLogout = async (evt) => {
         evt.preventDefault();
@@ -109,8 +142,19 @@ function Board() {
     return (
         <>
             <div className={classes.mainRoot}>
-                <Grid container spacing={2}>
-                    <Grid item xs={8}>
+                <div className={classes.drawerButton}>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="end"
+                        onClick={handleDrawerOpen}
+                        className={clsx(clickDrawer && classes.hide)}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                </div>
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
                         {clickMyBoard ? (
                             <>
                                 <MyBoardList userInfo={userInfo} myBoardBack={myBoardBack} getBoardNo={getMyNo} setClickMyBoard={setClickMyBoard}></MyBoardList>
@@ -144,12 +188,23 @@ function Board() {
                             </>
                         )}      
                     </Grid>
-                    <Grid item xs>
+                    <Drawer
+                        className={classes.drawer}
+                        variant="persistent"
+                        anchor="right"
+                        open={clickDrawer}
+                        classes={{
+                            paper: classes.drawerPaper,
+                        }}
+                    >
+                        <IconButton onClick={handleDrawerClose}>
+                            <ChevronRightIcon />
+                        </IconButton>
                         <SideMenu userInfo={userInfo} handleUserDelete={handleUserDelete} handleUserInfo={handleUserInfo} handleMyBoard={handleMyBoard}></SideMenu>
                         <div className={classes.logout} >
                             <Button variant="contained" color="secondary" onClick={handleLogout}>로그아웃</Button>
                         </div>
-                    </Grid>
+                    </Drawer>
                 </Grid>
                 
                 </div>

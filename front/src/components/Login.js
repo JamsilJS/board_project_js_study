@@ -73,7 +73,7 @@ function Login(props) {
                     <TextField id="id" label="ID" onChange={e => setID(e.target.value)} />
                     <br />
                     <TextField id="pw" label="PW" type="password" onChange={e => setPW(e.target.value)} />
-                    {loginStatus && <><h5 style={{ color: 'red' }}>{loginStatus}</h5></>}
+                    {loginStatus && <><h5 style={{ color: 'red', margin: 0 }}>{loginStatus}</h5></>}
                 </form>
                 <br />
                 <br />
