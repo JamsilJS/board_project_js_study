@@ -175,10 +175,10 @@ function Board() {
                                                                 <BoardCreate createBack={createBack}></BoardCreate>
                                                             ) : (
                                                                     <>
-                                                                        <BoardList getBoardNo={getNo}></BoardList>
                                                                         <div className={classes.create} >
                                                                             <Button variant="contained" color="primary" onClick={handlecreate}>게시판생성</Button>
                                                                         </div>
+                                                                        <BoardList getBoardNo={getNo}></BoardList>
                                                                     </>
                                                                 )}
                                                         </>

@@ -123,12 +123,9 @@ function BoardDetail(props) {
     }, []);
 
     useEffect(() => {
-        
         const boardNo = props.data;
         GET_COMMENT({ boardNo }).then((boardList) => {
-            console.log(boardList.data);
             setCommentList(boardList.data.reverse());
-            console.log(Math.ceil(boardList.data.length / itemsPerPage));
             setNoOfPages(Math.ceil(boardList.data.length / itemsPerPage));
         })
         setChange(false)
@@ -156,7 +153,6 @@ function BoardDetail(props) {
                     alert("comment added");
                     setChange(true);
                     setComment("");
-                    e.target.reset()
                 }
             })
         }
@@ -193,20 +189,22 @@ function BoardDetail(props) {
 
                 <Grid item xs={12}>
                     <List>
-                        {/* yourItemList.subarray(((pageNumber - 1)*(numberOfItemsForPage)), ((pageNumber)*(numberOfItemsForPage))) */}
-                        {commentList.slice((page - 1) * itemsPerPage, page * itemsPerPage).map(value =>
-                        (
-                            <ListItem>
+                        {commentList.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((value,index) =>
+                            (
+                            <ListItem key={index}>
                                 <ListItemText primary={value.name} secondary={value.c_content} />
                             </ListItem>
-                        )
+                            )
                         )}
                     </List>
                     <Paper component="form" onSubmit={addComment} className={classes.addArea}>
                         <InputBase
                             className={classes.input}
                             placeholder="comment"
-                            onChange={(e) => setComment(e.target.value)}
+                            onChange={(e) => {
+                                setComment(e.target.value);
+                            }}
+                            value={comment}
                         />
                         <Divider className={classes.divider} orientation="vertical" />
                         <IconButton color="primary" className={classes.iconButton} onClick={addComment}>
