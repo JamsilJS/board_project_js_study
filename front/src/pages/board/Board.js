@@ -1,5 +1,3 @@
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { LOGOUT, DECODE_TOKEN, DELETE_USER} from '../../services/API';
@@ -12,29 +10,17 @@ import UserInfo from '../../components/UserInfo';
 import Grid from '@material-ui/core/Grid';
 import MyBoardList from '../../components/MyBoardList';
 const useStyles = makeStyles((theme) => ({
-    root: {
-        position: "relative",
-        width: "100%",
-        height: "90vh",
-        backgroundColor: "#F8F8FF"
-    },
-    sideRoot: {
-        position: "relative",
-        width: "100%",
-        height: "90vh",
-        backgroundColor: "#F8F8FF",
+    mainRoot: {
+        backgroundColor: "#FFFFFF",
+        heigth: "100%",
     },
     logout: {
-        position: "absolute",
-        bottom: "25px",
-        right: "25px",
+        position: "relative",
         textAlign: "right",
         padding: "5px",
     },
     create: {
-        position: "absolute",
-        bottom: "25px",
-        left: "25px",
+        position: "relative",
         padding: "5px",
     },
     userInfo: {
@@ -122,10 +108,8 @@ function Board() {
     const classes = useStyles();
     return (
         <>
-            <Header></Header>
-            <div className={classes.root}>
+            <div className={classes.mainRoot}>
                 <Grid container spacing={2}>
-
                     <Grid item xs={8}>
                         {clickMyBoard ? (
                             <>
@@ -169,7 +153,6 @@ function Board() {
                 </Grid>
                 
                 </div>
-            <Footer></Footer>
         </>
     );
 }

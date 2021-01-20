@@ -8,7 +8,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
-import PaginationItem from '@material-ui/lab/PaginationItem';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -24,21 +23,15 @@ const useStyles = makeStyles({
         width: "100%",
     },
     backBtn: {
-        position: "absolute",
-        top: "30px",
-        right: "25px",
-        textAlign: "right",
-        padding: "5px",
+        position: "relatvie",
+        margin:10
     },
     delBtn: {
-        position: "absolute",
-        top: "80px",
-        right: "25px",
-        textAlign: "right",
-        padding: "5px",
+        position: "relatvie",
+        margin:10
     },
     card: {
-        height: "45vh",
+        height: "15rem",
         minWidth: "400",
     },
     title: {
@@ -48,7 +41,7 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
     paper: {
-        height: "40vh",
+        height: "20rem",
     },
     pagenation: {
         textAlign: "center"
@@ -148,7 +141,8 @@ function BoardDetail(props) {
         });
     }
 
-    const addComment = () => {
+    const addComment = (e) => {
+        e.preventDefault();
         if (comment === "") {
             alert("comment is empty. please fill comment");
             return;
@@ -158,9 +152,11 @@ function BoardDetail(props) {
             const boardNo = props.data;
             const userNo = uNo
             CREATE_COMMENT({ content, boardNo, userNo }).then((res) => {
-                if (res.data == "ADD_COMMENT") {
+                if (res.data === "ADD_COMMENT") {
                     alert("comment added");
                     setChange(true);
+                    setComment("");
+                    e.target.reset()
                 }
             })
         }
@@ -189,9 +185,11 @@ function BoardDetail(props) {
                                 {info.b_content}
                             </Typography>
                         </CardContent>
+                      
                     </Card>
-                    {isAuth ? (<Button className={classes.delBtn} variant="contained" color="secondary" onClick={handleDelete}>삭제하기</Button>) : (<></>)}
-                </Grid>
+                    {isAuth ? (<Button className={classes.delBtn} variant="contained" color="secondary" onClick={handleDelete}>삭제하기</Button>) : (<></>)}               
+                    <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.handleBack}>뒤로가기</Button>
+                 </Grid>
 
                 <Grid item xs={12}>
                     <List>
@@ -204,7 +202,7 @@ function BoardDetail(props) {
                         )
                         )}
                     </List>
-                    <Paper component="form" className={classes.addArea}>
+                    <Paper component="form" onSubmit={addComment} className={classes.addArea}>
                         <InputBase
                             className={classes.input}
                             placeholder="comment"
@@ -225,8 +223,6 @@ function BoardDetail(props) {
                     </Grid>
                 </Grid>
             </Grid>
-
-            <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.handleBack}>뒤로가기</Button>
         </div>
     );
 }

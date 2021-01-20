@@ -7,9 +7,9 @@ import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles({
     root: {
-        position: "relative",
-        width: "100%",
-        height: "90vh"
+        display:'flex',
+        justifyContent:'center',
+        alignContent:'center',
     },
     btn: {
         textAlign: "center",
@@ -19,13 +19,15 @@ const useStyles = makeStyles({
         textAlign: "center",
     },
     box: {
-        paddingTop: 90,
-        width: 300,
+        paddingTop: 60,
+        width: 350,
         height: 500,
-        marginTop: 90,
+        marginTop: 50,
         margin: "auto",
-        background: "#FFFAF0",
+        background: "#FFFFFF",
         border: "solid 1px #A9A9A9",
+        boxShadow: "1px 1px 1px 1px",
+        borderRadius: "35px"
     }
 })
 
@@ -61,8 +63,13 @@ function Login(props) {
 
     return (
         <div className={classes.root}>
+
             <Container className={classes.box} maxWidth="sm">
+                
                 <form className={classes.inp} noValidate autoComplete="off">
+                    <h5 >
+                        LOGIN
+                    </h5>
                     <TextField id="id" label="ID" onChange={e => setID(e.target.value)} />
                     <br />
                     <TextField id="pw" label="PW" type="password" onChange={e => setPW(e.target.value)} />

@@ -13,24 +13,24 @@ function MyBoardList(props) {
         const userNo = props.userInfo.no;
         GET_MYBOARD({ userNo }).then((res) => {
             console.log(res.data.length)
-            if(res.data.length == 0){
+            if(res.data.length === 0){
                 setBoard([])
             }
             else{
                 setBoard(res.data);
             }
         });
-    }, []);
+    },[]);
 
     const handleClick = (no) => {
         props.getBoardNo(no);
     }
 
     return (
-        <>
+        <div>
         <List>
             {board ? (
-                <>
+                <div>
                     {board.map((value, index) => {
                         return (
                             <div key={index} >
@@ -41,15 +41,15 @@ function MyBoardList(props) {
                             </div>
                         )
                     })}
-                </>
+                </div>
             ) : (
-                <>
+                <div>
                     empty
-                </>
+                </div>
             )}
         </List >
             <Button variant="contained" color="secondary" onClick={props.myBoardBack}>Back</Button>
-        </>
+        </div>
     );
 }
 

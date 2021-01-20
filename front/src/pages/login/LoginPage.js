@@ -1,5 +1,3 @@
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import { useState } from 'react';
 import Login from '../../components/Login';
 import Register from '../../components/Register';
@@ -17,9 +15,7 @@ function LoginPage() {
 
     return (
         <>
-            <Header></Header>
             {regCheck ? (<Register handleBack={handleBack}></Register>) : (<Login handleReg={handleRegistration}></Login>)}
-            <Footer></Footer>
         </>
     );
 }

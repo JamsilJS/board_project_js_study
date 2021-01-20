@@ -12,8 +12,7 @@ const useStyles = makeStyles((theme) => ({
     sideRoot: {
         position: "relative",
         width: "100%",
-        height: "90vh",
-        backgroundColor: "#F8F8FF",
+        backgroundColor: "#FFFFFF",
     },
     avatar: {
         width: theme.spacing(12),

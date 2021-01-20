@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // const DEV = "http://115.85.182.177:50001/api"
 // const SER = "http://localhost:50001/api";
-const API_URL = "http://localhost:50001/api";
+const API_URL = "http://10.1.66.160:50001/api";
 const HEADERS = { 'Content-Type': 'application/json' };
 
 const LOGIN = async (userInfo) => {

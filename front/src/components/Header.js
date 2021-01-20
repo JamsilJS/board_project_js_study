@@ -1,23 +1,30 @@
 import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-    root: {
-        height: "34px",
-        width: "100%",
+import AppBar from '@material-ui/core/AppBar';
+import logImg from '../img/header_logo.png';
+const useStyles = makeStyles((theme) => ({
+    header: {
+        position: "flex",
         textAlign: "center",
-        background: "#F8F8FF",
         margin: 0,
         padding: 0,
+        top:0,
+        background: "#FFFFFF",
+        alignItems:"center",
     },
-})
+    img: {
+        padding: 30,
+        width: 120,
+        height: 120,
+    }
+}))
 
 
 function Header() {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
-            <b>게시판</b>
-        </div>
+        <AppBar className={classes.header} elevation={0} position="relative">
+            <img src={logImg} className={classes.img} alt="load image failed"></img>
+        </AppBar>
     );
 }
 

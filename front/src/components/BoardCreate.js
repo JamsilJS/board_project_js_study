@@ -6,25 +6,19 @@ import React, { useState } from 'react';
 
 const useStyles = makeStyles({
     root: {
-        position: "relative",
+        top: "5rem",
+        position: "static",
         width: "100%",
-        top: 50,
     },
 
     backBtn: {
-        position: "absolute",
-        bottom: "25px",
-        left: "200px",
-        textAlign: "right",
-        padding: "5px",
+        position: "static",
+        margin: 10,
     },
 
     createBtn: {
-        position: "absolute",
-        bottom: "25px",
-        left: "25px",
-        textAlign: "right",
-        padding: "5px",
+        position: "static",
+        margin: 10,
     }
 
 })
@@ -49,17 +43,20 @@ function BoardCreate(props) {
 
     const classes = useStyles();
     return (
-        <div>
-            <form className={classes.root} noValidate autoComplete="off">
-                <TextField id="title" label="제목" variant="outlined" helperText="제목을 입력하세요." onChange={e => setTitle(e.target.value)}/>
-                <br />
-                <br />
-                <TextField id="content" label="내용" variant="outlined" multiline rows={10} helperText="내용을 입력하세요." onChange={e => setContent(e.target.value)} fullWidth={true} />
-            </form>
-            <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.createBack}>뒤로가기</Button>
-            <Button className={classes.createBtn} variant="contained" color="primary" onClick={handleCreate}>생성하기</Button>
-           
-        </div>
+        <>
+            <div className={classes.root} >
+                <form  noValidate autoComplete="off">
+                    <TextField id="title" label="제목" variant="outlined" helperText="제목을 입력하세요." onChange={e => setTitle(e.target.value)}/>
+                    <br />
+                    <br />
+                    <TextField id="content" label="내용" variant="outlined" multiline rows={10} helperText="내용을 입력하세요." onChange={e => setContent(e.target.value)} fullWidth={true} />
+                </form>
+            </div>
+            <div className={classes.btn}>
+                <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.createBack}>뒤로가기</Button>
+                <Button className={classes.createBtn} variant="contained" color="primary" onClick={handleCreate}>생성하기</Button>
+            </div>
+        </>
     );
 }
 
