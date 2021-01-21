@@ -6,7 +6,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import InfiniteLoader from 'react-infinite-loader'
+import StickyPaper from '../components/StickyPaper';
 
 const useStyles = makeStyles((theme) => ({
     listRoot: {
@@ -44,24 +44,18 @@ function BoardList(props) {
         props.getBoardNo(no);
     }
 
-    const renderCards = () => {
-        const cards = board.map((value) => {
+    const skickyPaperClick = () => {
+        
+    }
+
+    const renderStickyPaper = () => {
+        const stickyPaper = board.map((value) => {
             return (
-                <GridListTile cols={1} key={value.no} component={"div"} onClick={() => handleClick(value.no)}>
-                    <img className={classes.imgList} src={"https://source.unsplash.com/random/300x300"} alt={"img error"} />
-                    <GridListTileBar
-                        title={value.title}
-                        subtitle={<span>by: {value.no}</span>}
-                        actionIcon={
-                            <IconButton>
-                                <InfoIcon />
-                            </IconButton>
-                        }
-                    />
-                </GridListTile>
+                //() => handleClick(value.no)
+                <StickyPaper value={value} handleClick={handleClick}></StickyPaper>
             )
         })
-        return cards
+        return stickyPaper
     }
 
     const loadItems = () => {
@@ -78,11 +72,7 @@ function BoardList(props) {
 
     return (
         <div className={classes.listRoot}>
-            <GridList cellHeight={300} spacing={1} className={classes.gridList} cols={5}>
-                {renderCards()}
-            </GridList >
-            <InfiniteLoader onVisited={() => handleVisit()}>
-            </InfiniteLoader> 
+            {renderStickyPaper()}
         </div>
     );
 }

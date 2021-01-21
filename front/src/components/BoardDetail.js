@@ -16,11 +16,17 @@ import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import CreateIcon from '@material-ui/icons/Create';
+import StickyMemoImg from '../img/sticky_memo.png';
 
 const useStyles = makeStyles({
     root: {
         position: "relative",
         width: "100%",
+        backgroundImage: `url(${StickyMemoImg})`,
+        backgroundSize: "70%",
+        backgroundRepeat: "no-repeat",
+        backgroundPositionX: "50%",
+        height: 1200,
     },
     backBtn: {
         position: "relatvie",
@@ -31,8 +37,12 @@ const useStyles = makeStyles({
         margin:10
     },
     card: {
-        height: "15rem",
+        height: "20rem",
         minWidth: "400",
+        marginLeft: "20%",
+        marginRight: "20%",
+        marginTop: "10%",
+        backgroundColor: 'transparent',
     },
     title: {
         fontSize: 14,
@@ -55,6 +65,16 @@ const useStyles = makeStyles({
     input: {
         flex: 1,
     },
+    stickyMemo: {
+        position:"absolute",
+        width: "50%",
+        zIndex: 0
+    },
+    commentArea: {
+        marginLeft: "20%",
+        marginRight: "20%",
+        marginTop: "10%",
+    }
 })
 
 function getTimeStamp(date) {
@@ -164,7 +184,8 @@ function BoardDetail(props) {
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={2}>
+            {/* <img src={StickyMemoImg} className={classes.stickyMemo}></img> */}
+            <Grid container>
                 <Grid item xs={12}>
                     <Card className={classes.card} variant="outlined">
                         <CardContent>
@@ -183,11 +204,10 @@ function BoardDetail(props) {
                         </CardContent>
                       
                     </Card>
+                 </Grid>
+                <Grid item xs={12} className={classes.commentArea}>
                     {isAuth ? (<Button className={classes.delBtn} variant="contained" color="secondary" onClick={handleDelete}>삭제하기</Button>) : (<></>)}               
                     <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.handleBack}>뒤로가기</Button>
-                 </Grid>
-
-                <Grid item xs={12}>
                     <List>
                         {commentList.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((value,index) =>
                             (
