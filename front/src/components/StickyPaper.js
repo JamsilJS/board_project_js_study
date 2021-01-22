@@ -1,5 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
-import stickyImg from '../img/sticky_paper.png';
+import stickyImg1 from '../img/sticky_1.png';
+import stickyImg2 from '../img/sticky_2.png';
+import stickyImg3 from '../img/sticky_3.png';
+import stickyImg4 from '../img/sticky_4.png';
+import stickyImg5 from '../img/sticky_5.png';
+import Typography from '@material-ui/core/Typography';
+
+const imgList = [stickyImg1,stickyImg2,stickyImg3,stickyImg4,stickyImg5]
 
 function getTimeStamp(date) {
     let d = new Date(date);
@@ -30,23 +37,25 @@ function leadingZeros(n, digits) {
 const useStyles = makeStyles((theme) => ({
     paperRoot:{
         position:"relative",
-        padding:10,
-        margin:5,
+        padding:5,
+        margin:2,
     },
     img:{
-        width:180,
-        height:160,
+        width:280,
+        height:280,
     },
     title:{
+        wordBreak: "break-all",
         position:"absolute",
         fontSize: "1.2em",
-        bottom: 70,
-        left: 100
+        marginRight: 50,
+        top: 60,
+        left: 80
     },
     date: {
         position:"absolute",
         fontSize: "0.6em",
-        bottom: 30,
+        bottom: 80,
         left: 100 
     },
     t:{
@@ -66,12 +75,14 @@ function StickyPaper(props) {
             <div className={classes.t}>
             </div>
             <div className={classes.title}>
-                {props.value.title}
+                <Typography>
+                    {props.value.title}
+                </Typography>
             </div>
             <div className={classes.date}>
                 {getTimeStamp(props.value.createdDate)}
             </div>
-            <img src={stickyImg} onClick={()=>{props.handleClick(props.value.no)}}></img>
+            <img src={imgList[props.randNo]} className={classes.img} onClick={()=>{props.handleClick(props.value.no)}}></img>
         </div>
     );
 }

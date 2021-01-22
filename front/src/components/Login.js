@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import { LOGIN } from '../services/API';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+
 
 const useStyles = makeStyles({
     root: {
@@ -28,6 +30,24 @@ const useStyles = makeStyles({
         border: "solid 1px #A9A9A9",
         boxShadow: "1px 1px 1px 1px",
         borderRadius: "35px"
+    },
+    loginBtn: {
+        background: 'linear-gradient(60deg, #555273, #5E5A7E)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)',
+    },
+    regBtn: {
+        background: 'linear-gradient(60deg, #9B95C1, #BFBCD8)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)',
     }
 })
 
@@ -67,9 +87,9 @@ function Login(props) {
             <Container className={classes.box} maxWidth="sm">
                 
                 <form className={classes.inp} noValidate autoComplete="off">
-                    <h5 >
+                    <Typography >
                         LOGIN
-                    </h5>
+                    </Typography>
                     <TextField id="id" label="ID" onChange={e => setID(e.target.value)} />
                     <br />
                     <TextField id="pw" label="PW" type="password" onChange={e => setPW(e.target.value)} />
@@ -80,10 +100,10 @@ function Login(props) {
                 <br />
                 <br />
                 <div className={classes.btn}>
-                    <Button style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" color="primary" onClick={handleLogin}>로그인</Button>
+                    <Button className={classes.loginBtn} style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" onClick={handleLogin}>로그인</Button>
                     <br />
                     <br />
-                    <Button style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" color="secondary" onClick={props.handleReg}>회원가입</Button>
+                    <Button className={classes.regBtn} style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" onClick={props.handleReg}>회원가입</Button>
                 </div>
             </Container>
         </div>

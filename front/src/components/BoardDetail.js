@@ -17,31 +17,42 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import CreateIcon from '@material-ui/icons/Create';
 import StickyMemoImg from '../img/sticky_memo.png';
+import './post.css';
 
 const useStyles = makeStyles({
     root: {
         position: "relative",
         width: "100%",
-        backgroundImage: `url(${StickyMemoImg})`,
-        backgroundSize: "70%",
-        backgroundRepeat: "no-repeat",
-        backgroundPositionX: "50%",
-        height: 1200,
+        height: "auto",
     },
     backBtn: {
         position: "relatvie",
-        margin:10
+        margin:10,
+        background: 'linear-gradient(20deg, #A39DC8 , #645CA2 )',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)'
     },
     delBtn: {
         position: "relatvie",
-        margin:10
+        margin:10,
+        background: 'linear-gradient(60deg, #4C467C, #343055)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)'
+    },
+    cardImgBack:{
+        display:"flex",
+        justifyContent:"center",
+        alignContent:"center",
     },
     card: {
-        height: "20rem",
-        minWidth: "400",
-        marginLeft: "20%",
-        marginRight: "20%",
-        marginTop: "10%",
         backgroundColor: 'transparent',
     },
     title: {
@@ -73,7 +84,7 @@ const useStyles = makeStyles({
     commentArea: {
         marginLeft: "20%",
         marginRight: "20%",
-        marginTop: "10%",
+        marginTop: "0",
     }
 })
 
@@ -187,27 +198,27 @@ function BoardDetail(props) {
             {/* <img src={StickyMemoImg} className={classes.stickyMemo}></img> */}
             <Grid container>
                 <Grid item xs={12}>
-                    <Card className={classes.card} variant="outlined">
-                        <CardContent>
-                            <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                글쓴이 : {info.name}
-                            </Typography>
-                            <Typography variant="h5" component="h2">
-                                {info.title}
-                            </Typography>
-                            <Typography className={classes.pos} color="textSecondary">
-                                {info.createdDate}
-                            </Typography>
-                            <Typography variant="body2" component="p">
-                                {info.b_content}
-                            </Typography>
-                        </CardContent>
-                      
-                    </Card>
+                    <div className={classes.cardImgBack}>
+                    <div class="postit">
+                        <Typography className={classes.title} color="textSecondary" gutterBottom>
+                            글쓴이 : {info.name}
+                        </Typography>
+                        <Typography variant="h5" component="h2">
+                            {info.title}
+                        </Typography>
+                        <Typography className={classes.pos} color="textSecondary">
+                            {info.createdDate}
+                        </Typography>
+                        <Typography variant="body2" component="p">
+                            {info.b_content}
+                        </Typography>
+                    </div>
+                    </div>
+                  
                  </Grid>
                 <Grid item xs={12} className={classes.commentArea}>
-                    {isAuth ? (<Button className={classes.delBtn} variant="contained" color="secondary" onClick={handleDelete}>삭제하기</Button>) : (<></>)}               
-                    <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.handleBack}>뒤로가기</Button>
+                    <Button className={classes.backBtn} variant="contained" onClick={props.handleBack}>뒤로가기</Button>
+                    {isAuth ? (<Button className={classes.delBtn} variant="contained" onClick={handleDelete}>삭제하기</Button>) : (<></>)}               
                     <List>
                         {commentList.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((value,index) =>
                             (

@@ -14,22 +14,32 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Typography from '@material-ui/core/Typography';
 
 const drawerWidth = 380;
 
 const useStyles = makeStyles((theme) => ({
     mainRoot: {
-        backgroundColor: "#FFFFFF",
         heigth: "100%",
     },
     logout: {
         position: "relative",
         textAlign: "right",
         padding: "5px",
+        position: "relative",
+        margin: 10,
+        background: 'linear-gradient(60deg, #4C467C, #343055)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)'
     },
     create: {
-        position: "relative",
-        padding: "5px",
+        alignItems: 'center',
+        justifyContent: 'center',
+        display: 'flex',
     },
     userInfo: {
         border: "1px solid black"
@@ -49,6 +59,16 @@ const useStyles = makeStyles((theme) => ({
         zIndex:5,
         top: 30,
         right: 30,
+    },
+    createBtn: {
+        background: 'linear-gradient(60deg, #555273, #5E5A7E)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        width: 180,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)',
     }
 }))
 
@@ -176,7 +196,9 @@ function Board() {
                                                             ) : (
                                                                     <>
                                                                         <div className={classes.create} >
-                                                                            <Button variant="contained" color="primary" onClick={handlecreate}>게시판생성</Button>
+                                                                            <Button variant="contained" className={classes.createBtn} onClick={handlecreate}>
+                                                                                <Typography>P o s t</Typography> 
+                                                                            </Button>
                                                                         </div>
                                                                         <BoardList getBoardNo={getNo}></BoardList>
                                                                     </>
@@ -201,9 +223,10 @@ function Board() {
                             <ChevronRightIcon />
                         </IconButton>
                         <SideMenu userInfo={userInfo} handleUserDelete={handleUserDelete} handleUserInfo={handleUserInfo} handleMyBoard={handleMyBoard}></SideMenu>
-                        <div className={classes.logout} >
-                            <Button variant="contained" color="secondary" onClick={handleLogout}>로그아웃</Button>
-                        </div>
+                        
+                       
+                        <Button className={classes.logout} variant="contained" onClick={handleLogout}>로그아웃</Button>
+              
                     </Drawer>
                 </Grid>
                 

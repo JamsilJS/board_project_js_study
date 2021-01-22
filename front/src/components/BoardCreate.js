@@ -6,19 +6,36 @@ import React, { useState } from 'react';
 
 const useStyles = makeStyles({
     root: {
-        top: "5rem",
-        position: "static",
+        position: "relative",
         width: "100%",
     },
 
     backBtn: {
-        position: "static",
+        position: "relative",
         margin: 10,
+        background: 'linear-gradient(20deg, #A39DC8 , #645CA2 )',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)'
     },
 
     createBtn: {
-        position: "static",
+        position: "relative",
         margin: 10,
+        background: 'linear-gradient(60deg, #4C467C, #343055)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)'
+    },
+
+    titleInp:{
+        paddingTop: 30
     }
 
 })
@@ -45,7 +62,7 @@ function BoardCreate(props) {
     return (
         <>
             <div className={classes.root} >
-                <form  noValidate autoComplete="off">
+                <form className={classes.titleInp} noValidate autoComplete="off">
                     <TextField id="title" label="제목" variant="outlined" helperText="제목을 입력하세요." onChange={e => setTitle(e.target.value)}/>
                     <br />
                     <br />
@@ -53,8 +70,8 @@ function BoardCreate(props) {
                 </form>
             </div>
             <div className={classes.btn}>
-                <Button className={classes.backBtn} variant="contained" color="secondary" onClick={props.createBack}>뒤로가기</Button>
-                <Button className={classes.createBtn} variant="contained" color="primary" onClick={handleCreate}>생성하기</Button>
+                <Button className={classes.backBtn} variant="contained" onClick={props.createBack}>뒤로가기</Button>
+                <Button className={classes.createBtn} variant="contained" onClick={handleCreate}>생성하기</Button>
             </div>
         </>
     );

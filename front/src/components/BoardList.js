@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GET_ALL_BOARD } from '../services/API';
 import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
 import StickyPaper from '../components/StickyPaper';
 
 const useStyles = makeStyles((theme) => ({
@@ -50,9 +45,10 @@ function BoardList(props) {
 
     const renderStickyPaper = () => {
         const stickyPaper = board.map((value) => {
+            const no = Math.floor(Math.random()*4 + 1);
             return (
                 //() => handleClick(value.no)
-                <StickyPaper value={value} handleClick={handleClick}></StickyPaper>
+                <StickyPaper value={value} randNo={no} handleClick={handleClick}></StickyPaper>
             )
         })
         return stickyPaper
@@ -60,10 +56,9 @@ function BoardList(props) {
 
     const loadItems = () => {
         /* just simulating a load of more items from an api here */
-        setTimeout(() => {
-            let board = board.slice()
-            console.log(board)
-        }, 1000)
+        // setTimeout(() => {
+        //     let board = board.slice()
+        // }, 1000)
     }
 
     const handleVisit = () => {

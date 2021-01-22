@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import { CREATE_USER } from '../services/API';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     root: {
@@ -28,7 +29,26 @@ const useStyles = makeStyles({
         border: "solid 1px #A9A9A9",
         boxShadow: "1px 1px 1px 1px",
         borderRadius: "35px"
+    },
+    regBtn: {
+        background: 'linear-gradient(60deg, #4C467C, #343055)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)'
+    },
+    backBtn: {
+        background: 'linear-gradient(60deg, #9B95C1, #BFBCD8)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)'
     }
+
 })
 
 
@@ -74,6 +94,9 @@ function Register(props) {
             <div className={classes.root}>
                 <Container className={classes.box} maxWidth="sm">
                     <form className={classes.inp} noValidate autoComplete="off">
+                        <Typography >
+                            SIGN UP
+                        </Typography>
                         <TextField id="id" label="ID" onChange={e => setID(e.target.value)} />
                         <br />
                         <TextField id="name" label="NAME" onChange={e => setName(e.target.value)} />
@@ -84,10 +107,10 @@ function Register(props) {
                     <br />
                     <br />
                     <div className={classes.btn}>
-                        <Button style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" color="primary" onClick={handleRegister}>가입하기</Button>
+                        <Button className={classes.regBtn} style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" color="primary" onClick={handleRegister}>가입하기</Button>
                         <br />
                         <br />
-                        <Button style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" color="secondary" onClick={props.handleBack}>뒤로가기</Button>
+                        <Button className={classes.backBtn} style={{ maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '50px' }} variant="contained" color="secondary" onClick={props.handleBack}>뒤로가기</Button>
                     </div>
                 </Container>
             </div>

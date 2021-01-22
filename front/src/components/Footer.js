@@ -4,6 +4,8 @@ const useStyles = makeStyles({
     footer: {
         padding:" 15px 5px",
         marginTop: "auto",
+        background: 'linear-gradient(60deg, #525252, #2C2C2C)',
+        backgroundColor:"#525252",
     },
     footerOne: {
         display: "block",

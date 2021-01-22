@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
         width: theme.spacing(12),
         height: theme.spacing(12),
         margin: 20,
+    },
+    deleteAcc: {
+        color:"red",
     }
 }))
 
@@ -44,7 +47,7 @@ function SideMenu(props) {
                         <ListItemText>작성글보기</ListItemText>
                     </ListItem>
                     <ListItem button onClick={props.handleUserDelete}>
-                        <ListItemText>탈퇴하기</ListItemText>
+                        <ListItemText className={classes.deleteAcc}>탈퇴하기</ListItemText>
                     </ListItem>
                 </List>
             </Grid>
